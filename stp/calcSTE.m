@@ -26,7 +26,7 @@ win = window(window_type, nlength); % generate the window function
 
 STE = []; % short time energy vector, initialize to empty
 ptr = 0; % index
-new_y = [];
+new_y = []; % vector for matching energy contour and signal
 while 1
     
     % Extracct frame of input data
