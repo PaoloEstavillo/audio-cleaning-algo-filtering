@@ -10,21 +10,22 @@ L = length(t); % length of signal
 f = 200;     % input frequency
 m = sin(2*pi*f*t);  % message signal
 m_fft = (fft(m)/L);   % Power Spectrum of the message signal
-m_with_noise = awgn(m, -20, 'measured');   % message signal with 5dB noise added
+m_with_noise = awgn(m, -20, 'measured');   % message signal with 20dB noise added
 m_with_noise_fft = (fft(m_with_noise)/L);     % Power Spectrum of noisy signal
 
 % Get the single sided FFT of message signal
 m_fft_pos = m_fft(1: L/2 + 1);
 m_with_noise_fft_pos = m_with_noise_fft(1: L/2 + 1);
+%% Discrete Wavelet Transform
+level = 6;
+% denoised_m = wden(m_with_noise, 'sqtwolog', 'h', 'mln', level, 'sym6');
+[WT, F] = cwt(m_with_noise, Fs, 'NumOctaves', 10, 'VoicesPerOctave', 32);
+denoised_m = icwt(WT, F,  [2 500], 'morse', 'SignalMean', mean(m_with_noise));
 
 figure(1);
 subplot(2, 1, 1);
 plot(m_with_noise);
-title('Signal with 5 db noise');
+title('Signal with 20 db noise');
 subplot(2, 1, 2);
-plot(w(1: L/2 + 1), 10*log(abs(m_with_noise_fft_pos)));
-title('Frequency Spectrum of noised signal');
-
-% for i = 0:length(t) - 1
-%     if abs(m_with_noise_fft)
-% end
+plot(denoised_m);
+title('Denoised signal');
