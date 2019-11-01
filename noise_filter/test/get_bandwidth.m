@@ -1,4 +1,4 @@
-function [bandlow,bandhigh] = get_bandwidth(m_in, Fs, threshold)
+function [bandwidth] = get_bandwidth(m_in, Fs, threshold)
 %% Function for getting the bandwidth of the message min
 % min = message input
 % Fs = Sampling Frequency at which min was sampled
@@ -22,6 +22,8 @@ for i = 0:(L/2)
         bandhigh = max(bandhigh, frequency);
     end
 end
+
+bandwidth = [bandlow bandhigh];
 
 end
 
