@@ -20,7 +20,7 @@ m_with_noise_fft_pos = m_with_noise_fft(1: L/2 + 1);
 level = 6;
 % denoised_m = wden(m_with_noise, 'sqtwolog', 'h', 'mln', level, 'sym6');
 [WT, F] = cwt(m_with_noise, Fs, 'NumOctaves', 10, 'VoicesPerOctave', 32);
-denoised_m = icwt(WT, F,  [2 500], 'morse', 'SignalMean', mean(m_with_noise));
+denoised_m = icwt(WT, F,  [100 500], 'morse', 'SignalMean', mean(m_with_noise));
 
 figure(1);
 subplot(2, 1, 1);
