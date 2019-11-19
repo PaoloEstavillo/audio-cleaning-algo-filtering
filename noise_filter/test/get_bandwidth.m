@@ -3,6 +3,7 @@ function [bandwidth] = get_bandwidth(m_in, Fs)
 % min = message input
 % Fs = Sampling Frequency at which min was sampled
 
+% [bw, flo, fhi, powr] = powerbw(m_in, Fs);
 [bw, flo, fhi, powr] = obw(m_in, Fs);
 
 bandwidth = [flo fhi];

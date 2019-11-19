@@ -24,5 +24,5 @@ for i = 1:log2(mlen)
     e_s = r - feedbacksig;
     freq_range = get_bandwidth(e_s, Fs);
     y_out = gain*bandpass(e_s, freq_range, Fs);
-    feedbacksig = .5*y_out;
+    feedbacksig = (1/gain)*y_out;
 end
