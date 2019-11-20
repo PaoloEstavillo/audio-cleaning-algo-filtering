@@ -46,13 +46,15 @@ denoised = smoothing_algo(denoised, 'moving');
 
 %% Plot results
 
-res_SNR = 20*log10(norm(denoised)/norm(noise)); %% Resulting SNR in db
-
 % Normalize Signals
 m = m/max(abs(m));
 m_with_noise = m_with_noise/max(abs(m_with_noise));
-noise = noise/max(abs(noise));su
 denoised = denoised/max(abs(denoised));
+
+noise = denoised - m;
+
+% Resulting SNR in dB
+resulting_SNR = 20*log10(norm(denoised)) - 20*log10(norm(noise))
 
 % Compare Signals
 plot(m);
