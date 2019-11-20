@@ -16,7 +16,10 @@ m_with_noise = awgn(m,5, 'measured');   % message signal with 0 SNR
 noise = m_with_noise - m;
 
 %% Denoise message here using wavelet denoising (1)
-denoised_message = wdenoise(m_with_noise, 5);
+% denoised_message = wdenoise(m_with_noise, 5);
+
+% Denoise message using Negative Feedback (2)
+denoised_message = noise_filt(m_with_noise, Fs, 'nf');
 
 figure(1);
 subplot(2, 1, 1)
