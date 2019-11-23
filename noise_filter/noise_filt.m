@@ -21,6 +21,16 @@ function [filtered_sig] = noise_filt(noisy_sig, Fs, type)
                 y_out = e_s;
                 break;
             end
+            
+            if freq_range(1,1) == 0
+                freq_range(1,1) = 1;
+            end
+            
+            if (freq_range(1,1) >= 20000)
+                y_out = e_s;
+                break;
+            end
+            
             y_out = gain*bandpass(e_s, freq_range, Fs);
             feedbacksig = (1/gain)*y_out;
         end
