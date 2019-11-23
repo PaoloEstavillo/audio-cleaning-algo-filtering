@@ -37,6 +37,10 @@ while 1
         xseg = y(ptr + 1:ptr + nlength);
     end
     
+    if numel(xseg) == 0
+        break;
+    end
+    
     % Filter the signal here using the noise filter
     xseg = noise_filt(xseg, Fs, filt_type);
     filtered_sig = [filtered_sig; xseg];

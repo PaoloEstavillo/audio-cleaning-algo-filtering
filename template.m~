@@ -60,7 +60,7 @@ noise = denoised - m;
 
 % Resulting SNR in dB
 resulting_SNR = 20*log10(norm(denoised)) - 20*log10(norm(noise));
-fprintf("Resulting SNR: %lf\n", resulting_SNR);
+frpintf("Resulting SNR: %")
 
 % Compare Signals
 plot(m);

@@ -23,8 +23,9 @@ m_with_noise = awgn(m, SNR, 'measured');
 
 % Extract the noisy component
 noise = m_with_noise - m;
-resulting_SNR = 20*log10(norm(m)) - 20*log10(norm(noise));
-fprintf("Input SNR: %lf\n", resulting_SNR);
+% resulting_SNR = 20*log10(norm(m)) - 20*log10(norm(noise));
+resulting_SNR = snr (m_with_noise);
+fprintf("Input SNR: %f\n", resulting_SNR);
 
 %% STP Block
 
@@ -38,7 +39,7 @@ window_overlap = 0;
 window_type = 'rectwin';
 
 % Noise Filter Type; 'nf' for Negative Feedback, 'wavelet' for wavelet denoising
-filt_type = 'wavelet';
+filt_type = 'nf';
 
 % Smoothing Type for smoothing algo
 smoothing_type = 'moving';
@@ -55,12 +56,14 @@ denoised = smoothing_algo(denoised, smoothing_type);
 % m = m/max(abs(m));
 % m_with_noise = m_with_noise/max(abs(m_with_noise));
 % denoised = denoised/max(abs(denoised));
+denoised = denoised * (max(abs(m))/max(abs(denoised)));
 
 noise = denoised - m;
 
 % Resulting SNR in dB
-resulting_SNR = 20*log10(norm(denoised)) - 20*log10(norm(noise));
-fprintf("Resulting SNR: %lf\n", resulting_SNR);
+% resulting_SNR = 20*log10(norm(denoised)) - 20*log10(norm(noise));
+resulting_SNR = snr(denoised);
+fprintf("Resulting SNR: %f\n", resulting_SNR);
 
 % Compare Signals
 plot(m);

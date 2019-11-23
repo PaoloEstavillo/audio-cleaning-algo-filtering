@@ -6,7 +6,7 @@ function [filtered_sig] = noise_filt(noisy_sig, Fs, type)
     gain = 0;
     e_s = [];
     y_out = [];
-    if type == 'nf'     % Negative Feedback filter
+    if type == "nf"     % Negative Feedback filter
         r = noisy_sig;
         feedbacksig = zeros(mlen, 1);
         gain = 5000;
@@ -17,10 +17,10 @@ function [filtered_sig] = noise_filt(noisy_sig, Fs, type)
                 y_out = e_s;
                 break;
             end
-%             if abs(freq_range(1,2) - freq_range(1,1)) < 200
-%                 y_out = e_s;
-%                 break;
-%             end
+            if abs(freq_range(1,2) - freq_range(1,1)) < 200
+                y_out = e_s;
+                break;
+            end
             y_out = gain*bandpass(e_s, freq_range, Fs);
             feedbacksig = (1/gain)*y_out;
         end
@@ -29,7 +29,7 @@ function [filtered_sig] = noise_filt(noisy_sig, Fs, type)
         filtered_sig = wdenoise(noisy_sig, 5);
     end
     
-    filtered_sig = filtered_sig/(max(abs(filtered_sig)));
+%     filtered_sig = filtered_sig/(max(abs(filtered_sig)));
     
 end
 
